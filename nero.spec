@@ -8,7 +8,6 @@ a = Analysis(
     pathex=['.'],
     binaries=[],
     datas=[
-        ('config/config.yaml', 'config'),
         ('config/config.example.yaml', 'config'),
     ],
     hiddenimports=[

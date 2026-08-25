@@ -79,7 +79,11 @@ class AppControlSkill(BaseSkill):
         try:
             # Launch detached process safely
             if os.name == "nt":
-                subprocess.Popen(cmd, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS)
+                subprocess.Popen(
+                    [cmd],
+                    shell=False,
+                    creationflags=subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS,
+                )
             else:
                 subprocess.Popen([cmd], start_new_session=True)
 

@@ -133,19 +133,20 @@ class NeroAssistant:
         self.skill_registry.register(TimeDateSkill())
         self.skill_registry.register(SearchSkill())
 
-    async def initialize(self) -> bool:
-        """Initialize all subsystems during application startup."""
+    async def initialize(self, enable_voice: bool = True) -> bool:
+        """Initialize subsystems, optionally excluding hardware-backed voice services."""
         logger.info("Initializing NERO subsystems...")
 
         try:
-            # 1. Start Audio Stream
-            mic_ok = self.audio_stream.start()
-            self.health_service.set_status("mic", "READY" if mic_ok else "DEGRADED")
+            if enable_voice:
+                mic_ok = self.audio_stream.start()
+                self.health_service.set_status("mic", "READY" if mic_ok else "DEGRADED")
+                asyncio.create_task(self._warmup_stt())
+            else:
+                logger.info("Voice services disabled for headless startup.")
+                self.health_service.set_status("mic", "DISABLED")
+                self.health_service.set_status("stt", "DISABLED")
 
-            # 2. Warm up STT model
-            asyncio.create_task(self._warmup_stt())
-
-            # 3. Start Scheduler
             asyncio.create_task(self.scheduler.start())
 
             # Ready

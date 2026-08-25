@@ -2,7 +2,7 @@
 Input command validation and strict schema enforcement.
 Guarantees zero arbitrary shell execution from LLM or untrusted inputs.
 """
-from typing import Dict, Any, Tuple
+from typing import Any, Dict, Optional, Tuple
 from .permissions import PermissionManager, PermissionLevel
 from .policy import SecurityPolicy
 from core.exceptions import SecurityError

@@ -4,9 +4,7 @@ Application bootstrap for NERO Assistant with PySide6 GUI and Asyncio integratio
 import sys
 import os
 import asyncio
-from typing import Optional
-from PySide6.QtWidgets import QApplication
-from PySide6.QtCore import QTimer
+from typing import TYPE_CHECKING, Optional
 
 # Ensure package root in sys.path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
@@ -14,8 +12,11 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 from config.loader import load_settings
 from core.assistant import NeroAssistant
 from core.lifecycle import LifecycleManager
-from ui.main_window import NeroMainWindow
 from utils.logger import setup_logger, get_logger
+
+if TYPE_CHECKING:
+    from PySide6.QtWidgets import QApplication
+    from ui.main_window import NeroMainWindow
 
 logger = setup_logger("nero")
 
@@ -28,14 +29,22 @@ class NeroApplication:
         self.cli_mode = cli_mode
         self.assistant = NeroAssistant(self.settings)
         self.lifecycle = LifecycleManager(self.assistant)
-        self.qt_app: Optional[QApplication] = None
-        self.main_window: Optional[NeroMainWindow] = None
+        self.qt_app: Optional["QApplication"] = None
+        self.main_window: Optional["NeroMainWindow"] = None
 
     def run(self) -> int:
         if self.cli_mode or not self.settings.app.ui_enabled:
             logger.info("Starting NERO in headless CLI mode...")
             self.lifecycle.start_headless()
             return 0
+
+        try:
+            from PySide6.QtWidgets import QApplication
+            from PySide6.QtCore import QTimer
+            from ui.main_window import NeroMainWindow
+        except ImportError as exc:
+            logger.error("GUI requires a local graphical environment: %s", exc)
+            return 1
 
         logger.info("Starting NERO Desktop HUD Interface...")
         self.qt_app = QApplication(sys.argv)

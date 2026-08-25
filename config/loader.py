@@ -6,7 +6,11 @@ import os
 import yaml
 from pathlib import Path
 from typing import Optional
-from dotenv import load_dotenv
+
+try:
+    from dotenv import load_dotenv
+except ImportError:  # Optional convenience for source-only/headless use.
+    load_dotenv = None
 
 from .settings import NeroSettings
 
@@ -23,7 +27,7 @@ def load_settings(config_path: Optional[str] = None) -> NeroSettings:
     env_path = Path(".env")
     if not env_path.exists():
         env_path = Path(__file__).parent.parent / ".env"
-    if env_path.exists():
+    if env_path.exists() and load_dotenv is not None:
         load_dotenv(dotenv_path=env_path)
 
     # Determine YAML configuration path

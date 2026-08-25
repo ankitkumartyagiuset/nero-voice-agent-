@@ -39,7 +39,7 @@ class LifecycleManager:
         self._is_running = True
 
         async def _main_loop():
-            await self.assistant.initialize()
+            await self.assistant.initialize(enable_voice=False)
             logger.info("Press Ctrl+C to terminate NERO.")
             while self._is_running:
                 await asyncio.sleep(0.5)
