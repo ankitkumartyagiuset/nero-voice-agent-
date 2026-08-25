@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+pip-log.txt
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+nero.db
+# Testing and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+
+# Type checking and tooling
+.mypy_cache/
+.pyright/
+.ruff_cache/
+
+# Local configuration and runtime data
+config/config.yaml
+*.db
+*.db-shm
+*.db-wal
+*.log
+logs/
+data/
+screenshots/*
+!screenshots/.gitkeep
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and OS files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.spec.bak
+*.manifest
+*.mdmp

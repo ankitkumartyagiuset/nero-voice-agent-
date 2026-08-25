@@ -1,0 +1,58 @@
+# NERO Production Configuration Template
+app:
+  name: "NERO"
+  version: "1.0.0"
+  env: "production"
+  debug: false
+  ui_enabled: true
+  confirmation_timeout_seconds: 15
+
+voice:
+  wake_word:
+    keyword: "nero"
+    sensitivity: 0.65
+    sample_rate: 16000
+    chunk_size: 1024
+    energy_threshold: 400.0
+    cooldown_seconds: 1.5
+
+  vad:
+    enabled: true
+    silence_duration_ms: 450
+    min_speech_duration_ms: 120
+    max_command_duration_seconds: 12
+    energy_threshold_multiplier: 1.4
+
+  stt:
+    provider: "faster_whisper"
+    model: "base"
+    device: "auto"
+    compute_type: "auto"
+    language: "en"
+    beam_size: 1
+
+  tts:
+    provider: "pyttsx3"
+    rate: 185
+    volume: 0.95
+    voice_index: 0
+    interruptible: true
+
+ai:
+  default_provider: "openai"
+  fallback_enabled: true
+  temperature: 0.4
+  max_tokens: 300
+  memory_message_limit: 10
+  auto_summarize: true
+
+  openai:
+    model: "gpt-4o-mini"
+    base_url: "https://api.openai.com/v1"
+
+  gemini:
+    model: "gemini-1.5-flash"
+
+  local:
+    model: "llama3:latest"
+    base_url: "http://localhost:11434/v1"
