@@ -17,6 +17,7 @@ classifiers = [
     "Topic :: Desktop Environment :: Voice Assistants",
 ]
 dependencies = [
+    "fastapi>=0.115.0",
     "PySide6>=6.6.0",
     "pydantic>=2.5.0",
     "pyyaml>=6.0.1",
@@ -29,13 +30,14 @@ dependencies = [
     "psutil>=5.9.0",
     "Pillow>=10.0.0",
     "python-dotenv>=1.0.0",
+    "uvicorn>=0.30.0",
 ]
 
 [project.scripts]
 nero = "main:main"
 
 [tool.setuptools]
-py-modules = ["main", "app"]
+py-modules = ["main", "app", "deployment"]
 
 [tool.setuptools.packages.find]
 include = ["automation*", "brain*", "config*", "core*", "platforms*", "security*", "services*", "skills*", "storage*", "ui*", "utils*", "voice*"]

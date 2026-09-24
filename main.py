@@ -5,11 +5,15 @@ Parses CLI options and launches NERO GUI or CLI headless mode.
 import sys
 import argparse
 import os
+from typing import Callable
 
 # Ensure package root in sys.path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-from app import run_app
+
+def load_run_app() -> Callable[..., int]:
+    from app import run_app
+    return run_app
 
 
 def main():
@@ -34,6 +38,7 @@ def main():
     if args.debug:
         os.environ["NERO_LOG_LEVEL"] = "DEBUG"
 
+    run_app = load_run_app()
     sys.exit(run_app(cli=args.cli, config=args.config))
 
 
