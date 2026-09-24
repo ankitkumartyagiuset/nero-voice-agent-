@@ -183,6 +183,20 @@ python main.py
 python main.py --cli
 ```
 
+### Deploy as Headless HTTP Service (cloud/server runtime):
+```bash
+uvicorn deployment:app --host 0.0.0.0 --port ${PORT:-8000}
+```
+
+Required environment variables for deployment:
+- `PORT` (provided by most platforms; defaults to `8000` locally)
+- `NERO_DEPLOYMENT_MODE` (optional, defaults to `api`; returned by `/health`)
+
+The desktop/CLI launcher is unchanged and still uses:
+```bash
+python main.py --cli
+```
+
 ---
 
 ## Voice Commands Reference

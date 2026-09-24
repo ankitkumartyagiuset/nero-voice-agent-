@@ -1,9 +1,11 @@
 # Core Framework & UI
+fastapi>=0.115.0
 PySide6>=6.6.0
 pydantic>=2.5.0
 pydantic-settings>=2.0.0
 pyyaml>=6.0.1
 python-dotenv>=1.0.0
+uvicorn>=0.30.0
 
 # Audio & Voice Processing
 sounddevice>=0.4.6
